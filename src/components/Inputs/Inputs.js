@@ -1,18 +1,37 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getParagraphs } from "../../redux/paragraphs/services";
 import { Styled } from "./Inputs.styled";
 
 const Inputs = () => {
+  const dispatch = useDispatch();
+  const [formValues, setFormValues] = useState({ paras: 4, format: "text" });
+
+  useEffect(() => {
+    dispatch(getParagraphs(formValues));
+  }, [formValues]);
+
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
+
   return (
     <Styled>
       <div>
-        <label for="paras">Paragraphs</label>
+        <label htmlFor="paras">Paragraphs</label>
         <br />
-        <input name="paras" type="number" min="1" value="4" />
+        <input
+          name="paras"
+          type="number"
+          min="1"
+          value={formValues.paras}
+          onChange={handleChange}
+        />
       </div>
       <div>
-        <label for="html">Include HTML</label>
+        <label htmlFor="html">Include HTML</label>
         <br />
-        <select name="format" value="text">
+        <select name="format" value={formValues.format} onChange={handleChange}>
           <option value="html">Yes</option>
           <option value="text">No</option>
         </select>

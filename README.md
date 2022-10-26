@@ -2,4 +2,7 @@
 
 ### TECHNOLOGIES
 
+- Axios
+- Redux
+- Redux Toolkit
 - Styled Components
